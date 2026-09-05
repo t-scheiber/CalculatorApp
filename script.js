@@ -2,13 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const calculator = document.querySelector(".calculator");
   const keys = calculator.querySelector(".calculator-keys");
   const display = calculator.querySelector(".calculator-screen");
-  let previousKeyType = "";
 
   keys.addEventListener("click", (e) => {
     if (!e.target.matches("button")) return;
 
     const key = e.target;
-    const action = key.classList.contains("operator")
+    const action = key.value === "all-clear"
+      ? "clear"
+      : key.value === "="
+      ? "calculate"
+      : key.classList.contains("operator")
       ? "operator"
       : key.classList.contains("decimal")
       ? "decimal"
@@ -30,12 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (action === "decimal") {
-      if (!displayedNum.includes(".")) {
-        display.value = displayedNum + ".";
-      } else if (previousKey === "operator" || previousKey === "calculate") {
+      if (previousKey === "operator" || previousKey === "calculate" || displayedNum === "") {
         display.value = "0.";
+      } else if (!displayedNum.includes(".")) {
+        display.value = displayedNum + ".";
       }
-      previousKeyType = "decimal";
     }
 
     if (action === "operator") {
@@ -49,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
       delete calculator.dataset.firstValue;
       delete calculator.dataset.operator;
       delete calculator.dataset.modValue;
-      previousKeyType = "";
     }
 
     if (key.value === "=") {

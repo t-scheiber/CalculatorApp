@@ -110,3 +110,10 @@ This project demonstrates:
 ---
 
 **Built with Vanilla JavaScript** ⚡ | **No Frameworks Required** 🚀 | **Simple & Clean** ✨
+
+
+## Validation
+
+Run `node --test tests/*.test.mjs` for the calculator behavior tests and `node scripts/validate.mjs` for static assets, JavaScript syntax and manifest checks. No dependency installation is required. Tests cover arithmetic, new input after equals, fractional operands, clear/reset behavior and operator selection.
+
+GitHub Pages continues to deploy the static site. The shared personal maintenance controller provides isolated validation and security gates; production automation is enabled only after verified onboarding and enforced repository Rulesets.
