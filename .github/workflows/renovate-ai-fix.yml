@@ -56,10 +56,11 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: .github/renovate
+          path: .renovate-trusted
 
       - name: Stage helpers outside the application checkout
         run: |
-          cp -R .github/renovate "$RUNNER_TEMP/renovate-helpers"
+          cp -R .renovate-trusted/.github/renovate "$RUNNER_TEMP/renovate-helpers"
           echo "RENOVATE_PLAN=$RUNNER_TEMP/renovate-plan.json" >> "$GITHUB_ENV"
 
       - name: Resolve and mark the exact PR revision
@@ -92,6 +93,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           BASE_REF: ${{ steps.pr.outputs.base_ref }}
         run: |
+          test -n "$(git diff --name-only --diff-filter=U)"
           node "$RUNNER_TEMP/renovate-helpers/scripts/ai-renovate-fix.mjs" --conflicts --attempts 3
           git commit -m 'fix(deps): resolve dependency update conflicts'
 
@@ -104,7 +106,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24.20.0'
+          node-version: '24'
 
       - name: Set up Bun
         if: steps.detect.outputs.needs_bun == 'true'
@@ -129,7 +131,7 @@ jobs:
         if: steps.detect.outputs.needs_python == 'true'
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14.7'
+          python-version: '3.13'
 
       - name: Install Rust desktop build dependencies
         if: steps.detect.outputs.needs_rust == 'true'
