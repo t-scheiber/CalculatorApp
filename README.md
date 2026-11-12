@@ -1,119 +1,48 @@
-# Simple Calculator - Vanilla JavaScript
+# Simple Calculator
 
-A clean, functional calculator built with HTML, CSS, and vanilla JavaScript. Features a modern interface and supports basic arithmetic operations.
+A four-function calculator that runs as a static page, written in HTML, CSS and vanilla JavaScript. It has no build step and no runtime dependencies.
 
-## 🧮 Features
+Live site: https://t-scheiber.github.io/CalculatorApp/
 
-- **Basic Operations**: Addition, subtraction, multiplication, and division
-- **Clean Display**: Clear number visualization
-- **Decimal Support**: Handle decimal numbers
-- **All Clear (AC)**: Reset calculator with one click
-- **Responsive Design**: Works on all screen sizes
-- **Keyboard Support**: Use your keyboard for input
-- **Modern UI**: Clean, minimalist design
+## What it does
 
-## 🛠️ Technologies Used
+- Adds, subtracts, multiplies and divides two numbers. Results chain: `2 + 3 =`, then `* 4 =` shows 20.
+- Accepts decimal numbers, with one decimal point per operand.
+- Starts a new entry when a digit follows `=`, and continues from the result when an operator follows `=`.
+- Replaces the operator when a second one is pressed, and keeps the first operand.
+- `AC` clears the display and the pending operation.
+- Divides by zero without a check, so the display shows `Infinity`.
+- Takes input from button clicks only. `script.js` has no keyboard handler.
+- Uses a fixed 400 by 600 pixel box from `style.css`. The layout does not change with the screen size.
 
-- **HTML5** - Structure and semantic markup
-- **CSS3** - Styling and layout
-- **Vanilla JavaScript** - Calculator logic (no frameworks or libraries)
+## Files
 
-## 🎯 Operations Supported
+- `index.html`: the display and the 17 buttons.
+- `style.css`: layout and colors.
+- `script.js`: all calculator logic, started on `DOMContentLoaded`.
+- `favicon.svg` and `favicon.png`: browser tab icons.
+- `tests/calculator.test.mjs`: seven tests that run `script.js` in a Node VM with a stub DOM.
+- `scripts/validate.mjs`: checks the asset links, button values, JavaScript syntax and that `package.json` lists no dependencies.
+- `.github/`: a GitHub Actions workflow and scripts for Renovate pull requests.
 
-- ➕ Addition
-- ➖ Subtraction
-- ✖️ Multiplication
-- ➗ Division
-- 🔢 Decimal numbers
-- 🔄 Clear/Reset
+## Requirements
 
-## 📦 Setup & Installation
+- A web browser to use the calculator.
+- Node.js 24.20.0 or later for the checks, as set in `engines` in `package.json`.
+
+## Run it locally
+
+Open `index.html` in a browser, or serve the folder with any static file server, for example `npx serve .`.
+
+## Checks
 
 ```bash
-# No installation required!
-# Simply open index.html in your browser
-
-# Or serve with a local server:
-npx serve .
+npm test          # node --test tests/*.test.mjs
+npm run validate  # node scripts/validate.mjs
 ```
 
-## 🏗️ Project Structure
+Neither command installs anything, because the project has no dependencies and no lockfile.
 
-```
-CalculatorApp/
-├── index.html      # HTML structure
-├── style.css       # Styling
-├── script.js       # Calculator logic
-├── favicon.svg     # App icon (SVG)
-└── favicon.png     # App icon (PNG)
-```
+## Deployment
 
-## 💡 Key Concepts Demonstrated
-
-- **Event Handling**: Button clicks and user interactions
-- **DOM Manipulation**: Dynamic display updates
-- **State Management**: Tracking calculator state
-- **Mathematical Operations**: Implementing arithmetic logic
-- **Error Handling**: Division by zero, invalid operations
-- **Clean Code**: Organized, readable JavaScript
-
-## 🎨 Design Features
-
-- Clean, modern interface
-- Large, easy-to-click buttons
-- Grid layout for organized button placement
-- Responsive design for mobile and desktop
-- Custom favicon for browser tab
-
-## 📱 Responsive Design
-
-The calculator automatically adapts to:
-- Desktop screens
-- Tablets
-- Mobile phones
-
-## 🧪 How It Works
-
-1. **Input**: Click number buttons or operators
-2. **Display**: Numbers appear on the screen
-3. **Calculate**: Press equals (=) to see result
-4. **Clear**: Use AC button to reset
-
-## 🚀 Future Enhancements
-
-Potential features to add:
-- Scientific calculator functions
-- History of calculations
-- Keyboard shortcuts
-- Memory functions (M+, M-, MR, MC)
-- Percentage calculations
-- Theme customization
-
-## 📚 Learning Outcomes
-
-This project demonstrates:
-- JavaScript fundamentals
-- Event-driven programming
-- DOM manipulation
-- CSS Grid layout
-- Responsive design principles
-- Code organization
-
-## 🎓 Perfect For
-
-- Learning JavaScript basics
-- Understanding calculator logic
-- Practicing DOM manipulation
-- Portfolio projects
-- Code interview preparation
-
----
-
-**Built with Vanilla JavaScript** ⚡ | **No Frameworks Required** 🚀 | **Simple & Clean** ✨
-
-
-## Validation
-
-Run `node --test tests/*.test.mjs` for the calculator behavior tests and `node scripts/validate.mjs` for static assets, JavaScript syntax and manifest checks. No dependency installation is required. Tests cover arithmetic, new input after equals, fractional operands, clear/reset behavior and operator selection.
-
-GitHub Pages continues to deploy the static site. The shared personal maintenance controller provides isolated validation and security gates; production automation is enabled only after verified onboarding and enforced repository Rulesets.
+GitHub Pages serves the `main` branch from the repository root. A push to `main` updates the live site.
