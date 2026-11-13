@@ -2,7 +2,7 @@
 
 A four-function calculator that runs as a static page, written in HTML, CSS and vanilla JavaScript. It has no build step and no runtime dependencies.
 
-Live site: https://t-scheiber.github.io/CalculatorApp/
+Live site: https://calculator.thomasscheiber.com
 
 ## What it does
 
@@ -45,4 +45,6 @@ Neither command installs anything, because the project has no dependencies and n
 
 ## Deployment
 
-GitHub Pages serves the `main` branch from the repository root. A push to `main` updates the live site.
+The live site runs on a self-hosted Coolify server. Its build runs the tests and `scripts/validate.mjs`, copies `index.html`, `script.js`, `style.css` and the two favicons into `build/`, and nginx serves that folder.
+
+GitHub Pages serves a second copy from the root of the `main` branch at https://t-scheiber.github.io/CalculatorApp/
